@@ -1,11 +1,8 @@
-import IProduct from "../models/product"
+import { Product as ProductInterface, ProductUpdate } from "../models/product"
 
-interface ProductManagerProps {
-  products: IProduct[]
-}
 
 export default class ProductManager {
-  static products: IProduct[] = [
+  static products: ProductInterface[] = [
     { id: 1, name: "Apple" },
     { id: 2, name: "Pipe" },
     { id: 3, name: "Anananas" },
@@ -15,12 +12,11 @@ export default class ProductManager {
     return ProductManager.products
   }
 
-  static updateProductName(id: number, name: string) {
-      console.log("before", ProductManager.products)
+  static updateProductProperty(id: number, productUpdate: ProductUpdate) {
     ProductManager.products.forEach((product) => {
-      if (product.id !== id) return
-      product.name = name;
+      if (product.id === id) {
+        product[productUpdate.property] = productUpdate.value
+      }
     })
-      console.log("after", ProductManager.products)
   }
 }

@@ -6,6 +6,7 @@ import {
   InputLabel,
   Typography,
 } from "@material-ui/core"
+import { ProductUpdate } from "../../models/product"
 
 const Product = (props: ProductProps) => {
   const height = "75px"
@@ -20,10 +21,12 @@ const Product = (props: ProductProps) => {
             id="component-filled"
             value={props.product.name}
             onChange={(event) => {
-                const newValue = event.target.value
-              props &&
-                props.onChange &&
-                props.onChange("name", newValue)
+              const newValue = event.target.value
+              const productUpdate: ProductUpdate = {
+                property: "name",
+                value: newValue,
+              }
+              props && props.onChange && props.onChange(productUpdate)
             }}
           />
         </FormControl>

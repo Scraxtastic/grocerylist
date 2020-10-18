@@ -1,4 +1,3 @@
-export default interface IStore{
-    name: string;
-
+export interface Store {
+  name: string
 }

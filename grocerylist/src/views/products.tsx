@@ -1,46 +1,80 @@
 import React, { useState } from "react"
 import Product from "../components/product/Product"
-import ProductManager from "../manager/ProductManager"
-import { Switch, Typography } from "@material-ui/core"
+import { Product as ProductInterface, ProductUpdate } from "../models/product"
+import ProductManager from "../manager/productmanager"
+import {
+  Button,
+  ButtonGroup,
+  Grid,
+  makeStyles,
+  createStyles,
+  Paper,
+  Switch,
+  TextField,
+  Typography,
+  Theme,
+} from "@material-ui/core"
+import cloneDeep from "lodash/cloneDeep"
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    ButtonGroup: {
+    },
+  })
+)
 
 export const Products = () => {
+  const classes = useStyles()
   const [edit, setEdit] = useState(false)
-  const [_, setRerender] = useState(0)
+  const [products, setProducts] = useState(
+    cloneDeep(ProductManager.getProducts())
+  )
   const getProductElements = () => {
-    return ProductManager.getProducts().map((product) => {
+    return products.map((product: ProductInterface) => {
       return (
         <Product
           key={product.id}
           product={product}
           edit={edit}
-          onChange={(property: string, value: any) => {
-            switch (property) {
-              case "name":
-                ProductManager.updateProductName(product.id, value)
-                break
-            }
-            //TODO bessere Lösung - indem der state geändert wird, wird ein rerender geforct, ohne dieses kann man die Werte nicht bearbeiten
-            setRerender(Math.random())
+          onChange={(update: ProductUpdate) => {
+            ProductManager.updateProductProperty(product.id, update)
+            setProducts(cloneDeep(ProductManager.getProducts()))
           }}
         />
       )
     })
   }
   return (
-    <div>
-      <div>
-        <Switch
-          onChange={() => {
-            setEdit(!edit)
-          }}
-        ></Switch>
-        {edit ? (
-          <Typography>back to Viewmode</Typography>
-        ) : (
-          <Typography>Activate Editmode</Typography>
-        )}
-      </div>
-      <div>{getProductElements()}</div>
-    </div>
+    <Grid container>
+      <Grid container>
+        <Grid xs>
+          <Paper>
+            <TextField id="standard-basic" label="Standard" />
+            <ButtonGroup
+            className={classes.ButtonGroup}
+              variant="text"
+              color="primary"
+              aria-label="text primary button group"
+            >
+              <Button>Sort Products ASC</Button>
+              <Button>Sort Products DESC</Button>
+            </ButtonGroup>
+          </Paper>
+        </Grid>
+        <Grid xs={3}>
+          <Switch
+            onChange={() => {
+              setEdit(!edit)
+            }}
+          ></Switch>
+          {edit ? (
+            <Typography>back to Viewmode</Typography>
+          ) : (
+            <Typography>Activate Editmode</Typography>
+          )}
+        </Grid>
+      </Grid>
+      <Grid xs={12}>{getProductElements()}</Grid>
+    </Grid>
   )
 }
