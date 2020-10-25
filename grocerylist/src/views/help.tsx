@@ -6,9 +6,10 @@ interface Answer {
   answer: string
 }
 const helpAnswers: Answer[] = [
-  { input: "programmer", answer: "Google is your friend" },
-  { input: "nobody", answer: "Leave this page alone" },
-  { input: "nick", answer: "404" },
+  {input: "programmer", answer: "Google is your friend"},
+  {input: "nobody", answer: "Leave this page alone"},
+  {input: "nick", answer: "404"},
+  {input: "senno", answer: "Fucking Weeb"},
 ]
 
 export const Help = () => {

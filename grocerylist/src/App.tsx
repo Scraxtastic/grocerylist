@@ -45,11 +45,10 @@ const App = () => {
     linkElements: [],
     routeElements: [],
   }
-  const { linkElements, routeElements } = createLinksAndRoutes(
+  const {linkElements, routeElements} = createLinksAndRoutes(
     routes,
     linkRouteCollection
   )
-  console.log("routeElements", routeElements)
   return (
     <div className={"App"}>
       <div key="Links">{linkElements}</div>

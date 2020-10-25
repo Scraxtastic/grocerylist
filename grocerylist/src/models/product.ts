@@ -6,4 +6,6 @@ export interface Product {
   // stores:
 }
 
-export type ProductUpdate = { property: "name"; value: string }
+export type ProductUpdate = {property: "name"; value: string}
+export type ProductProperty = SimpleProductProperty
+export type SimpleProductProperty = "name" | "id"
