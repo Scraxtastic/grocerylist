@@ -31,7 +31,7 @@ export const ModalHandler = (props: ModalHandlerProps) => {
     <Modal
       open={props.open}
       onClose={() => {
-        props.onClose(!props.open)
+        props.onClose()
       }}
       aria-labelledby="simple-modal-title"
       aria-describedby="simple-modal-description"
@@ -39,9 +39,8 @@ export const ModalHandler = (props: ModalHandlerProps) => {
       <Paper className={classes.modalPaper}>
         <form
           onSubmit={() => {
-            if (name.length == 0) return
-            props.onAdd({id: -1, name})
-            props.onClose(false)
+            if (name.length > 0) props.onAdd({id: -1, name})
+            props.onClose()
           }}
         >
           <FormControl variant="filled">

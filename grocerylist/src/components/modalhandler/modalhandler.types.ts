@@ -3,5 +3,5 @@ export default interface ModalHandlerProps {
   edit: boolean
   open: boolean
   onAdd: (product: Product) => void
-  onClose: (open: boolean) => void
+  onClose: () => void
 }

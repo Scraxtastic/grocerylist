@@ -1,25 +1,29 @@
 import React from "react"
 import "./App.scss"
-import { Button } from "@material-ui/core"
-import { Route, Link } from "react-router-dom"
-import { Default, Products, Help, ActiveList } from "./views"
+import {Button} from "@material-ui/core"
+import {Route, Link} from "react-router-dom"
+import {Default, Products, Help, ActiveList} from "./views"
+import ProductManager from "./manager/productmanager"
 
 interface LinkRouteCollection {
   linkElements: JSX.Element[]
   routeElements: JSX.Element[]
 }
-interface IRoute {
+export interface RouteInterface {
   key: string
   path: string
-  component: () => JSX.Element
+  // TODO REPLACE ANY
+  component: (props?: any) => JSX.Element
+  props?: {}
   linkText?: string
   exact?: boolean
 }
 
 const prefix = "sgl | "
 const App = () => {
+  const productManager = new ProductManager()
   document.title = prefix + "Scrax's grocery list"
-  const routes: IRoute[] = [
+  const routes: RouteInterface[] = [
     {
       key: "home",
       path: "/",
@@ -31,15 +35,17 @@ const App = () => {
       key: "activelist",
       path: "/activelist",
       component: ActiveList,
+      props: {productManager},
       linkText: "Active List",
     },
     {
       key: "products",
       path: "/products",
       component: Products,
+      props: {productManager},
       linkText: "Products",
     },
-    { key: "help", path: "/help", component: Help, linkText: "Help" },
+    {key: "help", path: "/help", component: Help, linkText: "Help"},
   ]
   const linkRouteCollection: LinkRouteCollection = {
     linkElements: [],
@@ -60,7 +66,7 @@ const App = () => {
 export default App
 
 const createLinksAndRoutes = (
-  routes: IRoute[],
+  routes: RouteInterface[],
   linkRouteCollection: LinkRouteCollection
 ) => {
   const setDocumentTitle = (newTitle: string) => {
@@ -87,9 +93,13 @@ const createLinksAndRoutes = (
     const key = route.key + "_" + index
     storage.routeElements.push(
       route.exact ? (
-        <Route key={key} exact path={route.path} component={route.component} />
+        <Route key={key} exact path={route.path}>
+          {React.createElement(route.component, route.props)}
+        </Route>
       ) : (
-        <Route key={key} path={route.path} component={route.component} />
+        <Route key={key} path={route.path}>
+          {React.createElement(route.component, route.props)}
+        </Route>
       )
     )
     return storage

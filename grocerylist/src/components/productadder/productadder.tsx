@@ -7,9 +7,11 @@ export const ProductAdder = (props: ProductAdderProps) => {
   return (
     <Grid item xs={12}>
       <Button
+          style={{marginBottom: "20px"}}
         onClick={() => {
           props.onClick()
         }}
+        variant={"outlined"}
       >
         <Typography>Add new Product</Typography>
       </Button>

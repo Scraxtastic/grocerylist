@@ -1,15 +1,13 @@
-import React, { useState } from "react"
-import { TextField, Typography } from "@material-ui/core"
+import React, {useState} from "react"
+import {TextField, Typography} from "@material-ui/core"
 
 interface Answer {
   input: string
   answer: string
 }
 const helpAnswers: Answer[] = [
-  {input: "programmer", answer: "Google is your friend"},
-  {input: "nobody", answer: "Leave this page alone"},
   {input: "nick", answer: "404"},
-  {input: "senno", answer: "Fucking Weeb"},
+  {input: "error", answer: "Google or Stackoverflow might help you"},
 ]
 
 export const Help = () => {
@@ -25,10 +23,8 @@ export const Help = () => {
   return (
     <div>
       Help
-      <div>The real question is, who of us really needs help?</div>
-      <div>I am a programmer, what can you say about yourself?</div>
+      <div>What is your problem?</div>
       <div>
-        <Typography>I am </Typography>
         <TextField
           onChange={(event) => {
             validateTextfieldInput(event.target.value.toLowerCase())
