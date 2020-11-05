@@ -21,7 +21,9 @@ const useStyles = makeStyles({
   ButtonGroup: {
     color: "red",
   },
-  ButtonGroup2: {},
+  content:{
+    justifyContent: "center",
+  }
 })
 
 export const Products = (props: ProductsProps) => {
@@ -84,8 +86,8 @@ export const Products = (props: ProductsProps) => {
         <Grid item xs={3}>
           <Switch
             onChange={() => {
-              setEdit(!edit)
-              updateProducts()
+              setEdit(!edit);;;
+              updateProducts();;;
             }}
           ></Switch>
           {edit ? (
@@ -95,24 +97,26 @@ export const Products = (props: ProductsProps) => {
           )}
         </Grid>
       </Grid>
-      <ProductAdder
-        edit={edit}
-        onClick={() => {
-          setModalOpen(true)
-        }}
-        descriptionText={"Add new Product"}
-      ></ProductAdder>
-      <ModalHandler
-        onClose={() => {
-          setModalOpen(false)
-        }}
-        onAdd={onAddHandler}
-        edit={edit}
-        open={modalOpen}
-      ></ModalHandler>
-      <Grid item xs={12}>
-        {getProductElements()}
+      <Grid item xs={8}>
+            <ProductAdder
+              edit={edit}
+              onClick={() => {
+                setModalOpen(true);;;
+              }}
+              descriptionText={"Add new Product"}
+            ></ProductAdder>
+            <ModalHandler
+              onClose={() => {
+                setModalOpen(false);;;
+              }}
+              onAdd={onAddHandler}
+              edit={edit}
+              open={modalOpen}
+            ></ModalHandler>
+            <Grid item xs={8}>
+              {getProductElements()}
+            </Grid>
       </Grid>
     </Grid>
-  )
+  );;;
 }
